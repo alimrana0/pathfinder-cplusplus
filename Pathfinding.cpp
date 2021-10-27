@@ -12,8 +12,13 @@ using namespace std;
 // utility function to compute a path from start to goal given the came_from information
 void came_from_to_path(const map<Point, Point> & came_from, const Point & start, const Point & goal, list<Point> & path) {
   // TODO: reconstruct path
+  for (map<Point,Point>::const_iterator it = came_from.begin(); it != came_from.end(); it++) {
+    if(it->second == goal) {
+      break;
+    }
+    path.push_back(it->second);
+  }
 }
-
 
 
 void pathfind_bfs(const World & w, list<Point> & path) {
