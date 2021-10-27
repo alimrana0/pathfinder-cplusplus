@@ -12,11 +12,10 @@ using namespace std;
 // utility function to compute a path from start to goal given the came_from information
 void came_from_to_path(const map<Point, Point> & came_from, const Point & start, const Point & goal, list<Point> & path) {
   // TODO: reconstruct path
-  for (map<Point,Point>::const_iterator it = came_from.begin(); it != came_from.end(); it++) {
-    if(it->second == goal) {
-      break;
-    }
-    path.push_back(it->second);
+    Point currPoint = start;
+    while (currPoint != goal) {
+    path.push_back(currPoint);
+    currPoint = came_from.at(currPoint);
   }
 }
 
@@ -26,6 +25,30 @@ void pathfind_bfs(const World & w, list<Point> & path) {
 
   deque<Point> frontier;
   map<Point, Point> came_from;
+  Point up = {0,1};
+  Point down  = {0,-1};
+  Point left = {-1, 0};
+  Point right = {1, 0};
+
+    vector<Point> increments;
+    increments.push_back(up); 
+    increments.push_back(down);
+    increments.push_back(left);
+    increments.push_back(right);
+
+  frontier.push_back(w.start);
+
+for (int i = 0; i < w.size; i++) {
+    for (int j = 0; j < w.size; j++) {
+  for (Point neighbor : increments) {
+      Point next{i + increments.row, j + increments.column};
+      if (i < w.size-1 && j < w.size -1) {
+        frontier.push_back(next);
+      }
+    }
+
+    //use get neighbors
+
 
   // TODO: implement BFS using frontier and came_from
 
