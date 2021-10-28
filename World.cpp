@@ -64,7 +64,7 @@ void World::get_neighbors(const Point & p, set<Point> & neighbors) const {
   Point down  = {0,-1};
   Point left = {-1, 0};
   Point right = {1, 0};
-
+  
   set<Point> increments;
   increments.insert(up); 
   increments.insert(down);
@@ -74,7 +74,9 @@ void World::get_neighbors(const Point & p, set<Point> & neighbors) const {
   for (Point neighbor : increments) {
     if (p.row + neighbor.row < size && p.col + neighbor.col < size) {
       Point next = {p.row + neighbor.row, p.col + neighbor.col};
-      neighbors.insert(next);
+      if (!(blocks.find(next) != blocks.end())) {
+        neighbors.insert(next);
+      }
     }
   }
   // TODO: fill in neighbors
