@@ -32,20 +32,21 @@ void pathfind_bfs(const World & w, list<Point> & path) {
 
   while (!frontier.empty()) {
     Point current = frontier.front();
+    if (current == w.goal) {
+        break;
+    }
     frontier.pop_front();
 
     //use get neighbors
     w.get_neighbors(current, neighbors);
 
     for (Point neighbor : neighbors) {
-      frontier.push_back(neighbor);
-      came_from.insert(neighbor, current);
-      if (neighbor == w.goal) {
-        break;
+      if (came_from.find(neighbor) == came_from.end()) {
+        frontier.push_back(neighbor);
+        came_from.insert(neighbor, current);
       }
     }
   }
-
   // TODO: implement BFS using frontier and came_from
 
   came_from_to_path(came_from, w.start, w.goal, path);
@@ -80,6 +81,35 @@ void pathfind_astar(const World & w, list<Point> & path) {
   vector<PriorityPoint> frontier;
   map<Point, Point> came_from;
   map<Point, double> cost_so_far;
+
+  set<Point> neighbors;
+
+  frontier.push_back(PriorityPoint{0, w.start});
+  cost_so_far.insert(pair<Point, double> (w.start, 0.0));
+
+  while (!frontier.empty())
+  {
+    PriorityPoint current = frontier.front();
+    if (current.point == w.goal) {
+        break;
+    }
+    remove(frontier.begin(), frontier.begin() + 1, current);
+
+    w.get_neighbors(current.point, neighbors);
+
+    for (Point neighbor : neighbors) {
+      double new_cost = cost_so_far.find(current.point)->second + move_cost;
+      if (came_from.find(neighbor) == came_from.end() || new_cost < cost_so_far.find(current.point)->second) {
+        double newPriority = new_cost + heuristic(current.point, neighbor);
+        frontier.push_back(PriorityPoint{newPriority, neighbor});
+        came_from.insert(neighbor, current.point);
+        cost_so_far.insert(pair<Point, double> (neighbor, new_cost));
+      }
+    }
+  }
+  
+
+  
 
   // TODO: implement A* using frontier, came_from and cost_so_far
 
