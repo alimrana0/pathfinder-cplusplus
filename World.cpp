@@ -60,6 +60,22 @@ void World::display(const list<Point> & path) const {
 
 void World::get_neighbors(const Point & p, set<Point> & neighbors) const {
   neighbors.clear();
+  Point up = {0,1};
+  Point down  = {0,-1};
+  Point left = {-1, 0};
+  Point right = {1, 0};
 
+  set<Point> increments;
+  increments.insert(up); 
+  increments.insert(down);
+  increments.insert(left);
+  increments.insert(right);
+
+  for (Point neighbor : increments) {
+    if (p.row + neighbor.row < size && p.col + neighbor.col < size) {
+      Point next = {p.row + neighbor.row, p.col + neighbor.col};
+      neighbors.insert(next);
+    }
+  }
   // TODO: fill in neighbors
 }
