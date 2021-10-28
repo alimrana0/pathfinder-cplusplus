@@ -25,30 +25,26 @@ void pathfind_bfs(const World & w, list<Point> & path) {
 
   deque<Point> frontier;
   map<Point, Point> came_from;
-  Point up = {0,1};
-  Point down  = {0,-1};
-  Point left = {-1, 0};
-  Point right = {1, 0};
 
-    vector<Point> increments;
-    increments.push_back(up); 
-    increments.push_back(down);
-    increments.push_back(left);
-    increments.push_back(right);
+  set<Point> neighbors;
 
   frontier.push_back(w.start);
 
-for (int i = 0; i < w.size; i++) {
-    for (int j = 0; j < w.size; j++) {
-  for (Point neighbor : increments) {
-      Point next{i + increments.row, j + increments.column};
-      if (i < w.size-1 && j < w.size -1) {
-        frontier.push_back(next);
-      }
-    }
+  while (!frontier.empty()) {
+    Point current = frontier.front();
+    frontier.pop_front();
 
     //use get neighbors
+    w.get_neighbors(current, neighbors);
 
+    for (Point neighbor : neighbors) {
+      frontier.push_back(neighbor);
+      came_from.insert(neighbor, current);
+      if (neighbor == w.goal) {
+        break;
+      }
+    }
+  }
 
   // TODO: implement BFS using frontier and came_from
 
