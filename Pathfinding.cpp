@@ -93,13 +93,13 @@ void pathfind_astar(const World & w, list<Point> & path) {
     if (operator==(current.point, w.goal)) {
         break;
     }
-    remove(frontier.begin(), frontier.begin() + 1, current);
+    remove(frontier.begin(), frontier.begin(), current);
 
     w.get_neighbors(current.point, neighbors);
 
     for (Point neighbor : neighbors) {
       double new_cost = cost_so_far.find(current.point)->second + move_cost;
-      if (came_from.find(neighbor) == came_from.end() || new_cost < cost_so_far.find(current.point)->second) {
+      if (cost_so_far.find(neighbor) == cost_so_far.end() || new_cost < cost_so_far.find(current.point)->second) {
         double newPriority = new_cost + heuristic(current.point, neighbor);
         frontier.push_back(PriorityPoint{newPriority, neighbor});
         came_from.insert(make_pair(neighbor, current.point));
