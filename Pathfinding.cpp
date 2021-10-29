@@ -84,6 +84,7 @@ void pathfind_astar(const World & w, list<Point> & path) {
 
   set<Point> neighbors;
 
+  make_heap(frontier.begin(), frontier.end());
   frontier.push_back(PriorityPoint{0, w.start});
   push_heap(frontier.begin(), frontier.end());
   cost_so_far.insert(make_pair(w.start, 0.0));
