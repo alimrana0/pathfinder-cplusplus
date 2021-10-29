@@ -13,7 +13,7 @@ using namespace std;
 void came_from_to_path(const map<Point, Point> & came_from, const Point & start, const Point & goal, list<Point> & path) {
   // TODO: reconstruct path
     Point currPoint = start;
-    while (currPoint != goal) {
+    while (operator!=(currPoint, goal)) {
     path.push_back(currPoint);
     currPoint = came_from.at(currPoint);
   }
@@ -32,7 +32,7 @@ void pathfind_bfs(const World & w, list<Point> & path) {
 
   while (!frontier.empty()) {
     Point current = frontier.front();
-    if (current == w.goal) {
+    if (operator==(current, w.goal)) {
         break;
     }
     frontier.pop_front();
@@ -43,7 +43,7 @@ void pathfind_bfs(const World & w, list<Point> & path) {
     for (Point neighbor : neighbors) {
       if (came_from.find(neighbor) == came_from.end()) {
         frontier.push_back(neighbor);
-        came_from.insert(neighbor, current);
+        came_from.insert(make_pair(neighbor, current));
       }
     }
   }
@@ -85,12 +85,12 @@ void pathfind_astar(const World & w, list<Point> & path) {
   set<Point> neighbors;
 
   frontier.push_back(PriorityPoint{0, w.start});
-  cost_so_far.insert(pair<Point, double> (w.start, 0.0));
+  cost_so_far.insert(make_pair(w.start, 0.0));
 
   while (!frontier.empty())
   {
     PriorityPoint current = frontier.front();
-    if (current.point == w.goal) {
+    if (operator==(current.point, w.goal)) {
         break;
     }
     remove(frontier.begin(), frontier.begin() + 1, current);
@@ -102,8 +102,8 @@ void pathfind_astar(const World & w, list<Point> & path) {
       if (came_from.find(neighbor) == came_from.end() || new_cost < cost_so_far.find(current.point)->second) {
         double newPriority = new_cost + heuristic(current.point, neighbor);
         frontier.push_back(PriorityPoint{newPriority, neighbor});
-        came_from.insert(neighbor, current.point);
-        cost_so_far.insert(pair<Point, double> (neighbor, new_cost));
+        came_from.insert(make_pair(neighbor, current.point));
+        cost_so_far.insert(make_pair(neighbor, new_cost));
       }
     }
   }
