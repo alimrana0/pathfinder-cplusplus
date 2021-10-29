@@ -73,6 +73,9 @@ double heuristic(const Point & a, const Point & b) {
 // assume cost of moving is always 1
 const double move_cost = 1.0;
 
+bool operator==(const PriorityPoint & lhs, const PriorityPoint & rhs) {
+  return !(lhs.point < rhs.point) && !(rhs.point < lhs.point);
+}
 
 
 void pathfind_astar(const World & w, list<Point> & path) {

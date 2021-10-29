@@ -29,9 +29,9 @@ void World::display(const list<Point> & path) const {
     for (int j = 0; j < size; j++) {
       if (j == size-1) {
         if (start==Point{i,j}) {
-        cout << "s";
+        cout << "S";
         } else if (goal==Point{i,j}) {
-        cout << "g";
+        cout << "G";
         } else if (blocks.find(Point{i,j}) != blocks.end()) {
         cout << "X";
         } else if (find(path.begin(), path.end(), Point{i, j}) != path.end()) {
@@ -41,9 +41,9 @@ void World::display(const list<Point> & path) const {
         }
       } else {
         if (start==Point{i,j}) {
-        cout << "s ";
+        cout << "S ";
       } else if (goal==Point{i,j}) {
-        cout << "g ";
+        cout << "G ";
       } else if (blocks.find(Point{i,j}) != blocks.end()) {
         cout << "X ";
       } else if (find(path.begin(), path.end(), Point{i, j}) != path.end()) {
@@ -80,10 +80,12 @@ void World::get_neighbors(const Point & p, set<Point> & neighbors) const {
   increments.insert(right);
 
   for (Point neighbor : increments) {
-    if (p.row + neighbor.row < size && p.col + neighbor.col < size) {
+    if (p.row + neighbor.row < size && p.col + neighbor.col < size && p.row + neighbor.row >= 0 && p.col + neighbor.col >= 0) {
       Point next = {p.row + neighbor.row, p.col + neighbor.col};
       if (blocks.find(next) == blocks.end()) {
+        if(neighbors.find(next) == neighbors.end()) {
         neighbors.insert(next);
+        }
       }
     }
   }
