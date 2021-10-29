@@ -13,7 +13,7 @@ using namespace std;
 void came_from_to_path(const map<Point, Point> & came_from, const Point & start, const Point & goal, list<Point> & path) {
   // TODO: reconstruct path
     Point currPoint = start;
-    while (operator!=(currPoint, goal)) {
+    while (currPoint != goal) {
     path.push_back(currPoint);
     currPoint = came_from.at(currPoint);
   }
@@ -32,7 +32,7 @@ void pathfind_bfs(const World & w, list<Point> & path) {
 
   while (!frontier.empty()) {
     Point current = frontier.front();
-    if (operator==(current, w.goal)) {
+    if (current == w.goal) {
         break;
     }
     frontier.pop_front();
@@ -90,7 +90,7 @@ void pathfind_astar(const World & w, list<Point> & path) {
   while (!frontier.empty())
   {
     PriorityPoint current = frontier.front();
-    if (operator==(current.point, w.goal)) {
+    if (current.point == w.goal) {
         break;
     }
     remove(frontier.begin(), frontier.begin(), current);
