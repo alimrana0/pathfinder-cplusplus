@@ -85,15 +85,18 @@ void pathfind_astar(const World & w, list<Point> & path) {
   set<Point> neighbors;
 
   frontier.push_back(PriorityPoint{0, w.start});
+  push_heap(frontier.begin(), frontier.end());
   cost_so_far.insert(make_pair(w.start, 0.0));
 
   while (!frontier.empty())
   {
-    PriorityPoint current = frontier.front();
+    pop_heap(frontier.begin(), frontier.end());
+    PriorityPoint current = frontier.back();
+    frontier.pop_back();
+
     if (current.point == w.goal) {
         break;
     }
-    remove(frontier.begin(), frontier.begin(), current);
 
     w.get_neighbors(current.point, neighbors);
 
@@ -102,6 +105,7 @@ void pathfind_astar(const World & w, list<Point> & path) {
       if (cost_so_far.find(neighbor) == cost_so_far.end() || new_cost < cost_so_far.find(current.point)->second) {
         double newPriority = new_cost + heuristic(current.point, neighbor);
         frontier.push_back(PriorityPoint{newPriority, neighbor});
+        push_heap(frontier.begin(), frontier.end());
         came_from.insert(make_pair(neighbor, current.point));
         cost_so_far.insert(make_pair(neighbor, new_cost));
       }
