@@ -82,16 +82,16 @@ void World::get_neighbors(const Point & p, set<Point> & neighbors) const {
   
 
   for (Point neighbor : increments) {
+    if(p.row < size && p.col < size) {
     if(blocks.find(p) == blocks.end()) {
     if (p.row + neighbor.row < size && p.col + neighbor.col < size && p.row + neighbor.row >= 0 && p.col + neighbor.col >= 0) {
       Point next = {p.row + neighbor.row, p.col + neighbor.col};
       if (blocks.find(next) == blocks.end()) {
         if(neighbors.find(next) == neighbors.end()) {
-          if(neighbors.find(p) == neighbors.end()) {
         neighbors.insert(next);
-          }
         }
       }
+    }
     }
     }
   }

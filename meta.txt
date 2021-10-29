@@ -1,17 +1,18 @@
 -- Who worked on this assignment? Provide names and GitHub usernames.
-
+Ali Rana (alimrana0), Ali Alyaqoub (aalyaqoub)
 
 
 -- How many hours did it take you to complete this assignment?
-
+20
 
 
 -- Describe your approach to implementing the assignment.
-
+We used the article to construct our understanding of the algorithms, and began implementing
+using this understanding.
 
 
 -- Did you use any external resources? If so, cite them below.
-
+Only those given in the README.txt
 
 
 -- (Optional) What was your favorite part of the assignment?
