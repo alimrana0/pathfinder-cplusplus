@@ -60,10 +60,18 @@ void World::display(const list<Point> & path) const {
 
 void World::get_neighbors(const Point & p, set<Point> & neighbors) const {
   neighbors.clear();
-  Point up = {0,1};
-  Point down  = {0,-1};
-  Point left = {-1, 0};
-  Point right = {1, 0};
+  Point up;
+  up.row = 0;
+  up.col = 1;
+  Point down;
+  down.row = 0;
+  down.col = -1;
+  Point left;
+  left.row = -1;
+  left.col = 0;
+  Point right;
+  right.row = 1;
+  right.col = 0;
   
   set<Point> increments;
   increments.insert(up); 
