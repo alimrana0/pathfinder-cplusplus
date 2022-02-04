@@ -7,7 +7,7 @@ Implemented functionality of a grid
 world, along with breadth-first-search (BFS) and A* algorithms for
 finding paths through it, using standard library algorithms.
 
-[Use this graph search overview](https://www.redblobgames.com/pathfinding/a-star/introduction.html).
+[Used this graph search introduction/overview](https://www.redblobgames.com/pathfinding/a-star/introduction.html).
 
 # Implementation Notes
 Worlds for pathfinding are initialized using an id
